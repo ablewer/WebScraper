@@ -28,8 +28,9 @@
   </component>
   <component name="ProjectId" id="1Sf7kSrGLMnQjVaESg2F2SlXYTM" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="C:/Program Files/Git/cmd/git.exe" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -53,6 +54,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1571942938075</updated>
+      <workItem from="1572892288803" duration="79000" />
+      <workItem from="1573061761821" duration="390000" />
     </task>
     <task id="LOCAL-00001" summary="This is adding a python interpreter and also a main.py.">
       <created>1571944362732</created>
@@ -63,6 +66,9 @@
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
