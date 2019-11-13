@@ -8,3 +8,9 @@
 **Research Questions:**
 -	What data comes out of the Open Search API (the google search JSON API)?
 -	Is it faster (or efficient) to use the API versus just pulling with the request module like we did in the homework?
+
+
+**Testing from 11/13/2019**
+-   Have to be careful with job hunting websites coming up
+-   Linkedin does not like web-scraping it, possibly have to reconfigure parser to be more "user" like
+-   As of now ShawnTestingWebsites.py searches for Microsoft jobs and gets data from the first 6 websites from google
