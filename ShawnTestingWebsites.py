@@ -10,8 +10,16 @@ technology_regex = re.compile(r'''
     (tech|technology)
 ''', re.VERBOSE)
 
+computer_regex = re.compile(r'''
+    (computer|computer science)
+''', re.VERBOSE)
+
 careers_regex = re.compile(r'''
     (careers|career|jobs|job|professional|hiring|student)
+''', re.VERBOSE)
+
+email_regex = re.compile(r'''
+    ([a-zA-Z0-9]+@[a-zA-Z0-9.]+)
 ''', re.VERBOSE)
 
 string = 'https://www.google.com/search?q=microsoft+jobs'  # start of searching string
@@ -30,7 +38,7 @@ for i in range(len(p_elems)):
     word = p_elems[i].get('href')
     index_value = word.find('&')
     url = p_elems[i].get('href')[7:int(index_value)]
-    print('Result #' + str(i) + ': ' + url)
+    print('\nResult #' + str(i) + ': ' + url)
 
     new_res = requests.get(url)
 
@@ -63,9 +71,32 @@ for i in range(len(p_elems)):
         for j in mo:
             career_count += 1
 
-    print('Tech Search hit count: ' + str(tech_count))
-    print('Career Search hit count: ' + str(career_count) + '\n')
+    mo = email_regex.findall(new_res.text.lower())
 
-    rank_dict[title] = {'Tech': tech_count, 'Career': career_count}
+    email_list = []
+
+    if mo:
+        for j in mo:
+            email_list.append(j)
+
+    computer_count = 0
+
+    mo = computer_regex.findall(new_res.text.lower())
+
+    if mo:
+        for j in mo:
+            computer_count += 1
+
+    print('Tech Search hit count: ' + str(tech_count))
+    print('Career Search hit count: ' + str(career_count))
+    print('Computer Search hit Count: ' + str(computer_count))
+
+    print('Email List:')
+
+    for email in email_list:
+        print('\t' + email)
+
+    rank_dict[title] = {'Tech': tech_count, 'Career': career_count, 'Email List': email_list,
+                        'Computer': computer_count}
 
 pprint.pprint(rank_dict)
