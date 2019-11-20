@@ -5,6 +5,8 @@ import bs4  # for use of parsing the html file
 import os
 import re
 import pprint
+import openpyxl
+from openpyxl.utils import get_column_letter
 
 technology_regex = re.compile(r'''
     (tech|technology)
@@ -97,6 +99,53 @@ for i in range(len(p_elems)):
         print('\t' + email)
 
     rank_dict[title] = {'Tech': tech_count, 'Career': career_count, 'Email List': email_list,
-                        'Computer': computer_count}
+                        'Computer': computer_count, 'url': url}
 
 pprint.pprint(rank_dict)
+
+excel_file = openpyxl.Workbook()
+
+sheet = excel_file.active
+
+title_list = ['Title', 'Email', 'Career', 'Computer', 'Tech', 'URL']
+
+iteration = 1
+
+for value in title_list:
+    cell = str(get_column_letter(iteration) + str(1))
+
+    sheet[cell] = value
+
+    iteration += 1
+
+iteration = 2
+for value in rank_dict:
+    cell = str(get_column_letter(1) + str(iteration))
+    sheet[cell] = value
+
+    cell = str(get_column_letter(2) + str(iteration))
+
+    message = ''
+
+    for item in rank_dict[value]['Email List']:
+        message += str(item + '\n')
+
+    sheet[cell] = message
+
+    cell = str(get_column_letter(3) + str(iteration))
+    sheet[cell] = rank_dict[value]['Career']
+
+    cell = str(get_column_letter(4) + str(iteration))
+    sheet[cell] = rank_dict[value]['Computer']
+
+    cell = str(get_column_letter(5) + str(iteration))
+    sheet[cell] = rank_dict[value]['Tech']
+
+    cell = str(get_column_letter(6) + str(iteration))
+    sheet[cell] = rank_dict[value]['url']
+
+    iteration += 1
+
+excel_file.save('ShawnTestData.xlsx')
+
+excel_file.close()
