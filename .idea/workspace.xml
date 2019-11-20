@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="112a2a90-bf3b-4333-b8eb-a7c7ea08e1ef" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ShawnTestData.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestingExcelSheets.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShawnTestData.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/ShawnTestData.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ShawnTestingWebsites.py" beforeDir="false" afterPath="$PROJECT_DIR$/ShawnTestingWebsites.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -136,7 +135,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574089221776</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added basic excel output">
+      <created>1574263648609</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1574263648609</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,6 +166,7 @@
     <MESSAGE value="This is adding a python interpreter and also a main.py." />
     <MESSAGE value="Shawn Testing Websites for data from web scraping" />
     <MESSAGE value="Added Email and computer search functions to prototype" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Email and computer search functions to prototype" />
+    <MESSAGE value="Added basic excel output" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added basic excel output" />
   </component>
 </project>
