@@ -14,3 +14,7 @@
 -   Have to be careful with job hunting websites coming up
 -   Linkedin does not like web-scraping it, possibly have to reconfigure parser to be more "user" like
 -   As of now ShawnTestingWebsites.py searches for Microsoft jobs and gets data from the first 6 websites from google
+
+**Testing from 11/20/2019**
+-   Added basic excel output, basically takes the data from the already built dictionary but organizes it into an excel file
+-   Will need more information and data to collect and organize but for now it's a very basic functioning prototype of the project
