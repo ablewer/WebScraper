@@ -1,6 +1,8 @@
 '''
 This program's function is to pull data about jobs and careers specified by the user and organizes the data into an
 excel file.
+
+Using the googlesearch module made by Mario Vilas at https://breakingcode.wordpress.com/
 '''
 
 import sys  # for use in the sys.argv
@@ -55,7 +57,7 @@ print('using: ' + string)  # print out to the user what exact search it is doing
 
 list_urls = []  # empty list for incoming urls
 
-for data in search(string, stop=20):  # for each piece of data in the search that stops at 20
+for data in search(string, stop=50):  # for each piece of data in the search that stops at 20
     list_urls.append(data)  # add that data to the list of urls
     print(data)  # output to user
 
