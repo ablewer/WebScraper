@@ -32,7 +32,7 @@ email_regex = re.compile(r'''
     ([a-zA-Z0-9]+@[a-zA-Z0-9.]+)
 ''', re.VERBOSE)
 
-string = 'https://www.google.com/search?q=microsoft+jobs'  # start of searching string
+string = 'https://www.google.com/search?q=cars'  # start of searching string
 
 print('using: ' + string)  # print out to the user what exact search it is doing
 
