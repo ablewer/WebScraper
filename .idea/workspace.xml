@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="112a2a90-bf3b-4333-b8eb-a7c7ea08e1ef" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.google-cookie" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestingExtenstionGoogleSearch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.google-cookie" beforeDir="false" afterPath="$PROJECT_DIR$/.google-cookie" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ShawnTestData.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/ShawnTestData.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ShawnTestingWebsites.py" beforeDir="false" afterPath="$PROJECT_DIR$/ShawnTestingWebsites.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestingExtenstionGoogleSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/TestingExtenstionGoogleSearch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

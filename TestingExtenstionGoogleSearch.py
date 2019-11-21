@@ -4,7 +4,7 @@ from googlesearch import search
 
 urls = []
 
-for url in search('microsoft jobs', stop=20):
+for url in search('microsoft jobs', stop=50):
     urls.append(url)
 
-print(urls)
+print(len(urls))

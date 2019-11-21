@@ -12,6 +12,7 @@ import pprint  # for use of pprinting
 import multiprocessing  # to que up the url's
 import openpyxl  # for use of excel files
 from openpyxl.utils import get_column_letter  # getting the get_colum_letter function
+from googlesearch import search
 
 # regex to search for technology keywords
 technology_regex = re.compile(r'''
@@ -44,16 +45,19 @@ rank_dict = {}  # empty dictionary for data to be dumped into
 if sys.argv.__len__() > 1:
     if isinstance(sys.argv[1], int):  # if 1 element is an integer
         numProcesses = sys.argv[1]
-        string = 'https://www.google.com/search?q=' + '+' .join(sys.argv[2:])   # use the 3rd element on
+        string = '' + ' ' .join(sys.argv[2:])   # use the 3rd element on
     else:  # if the 1 element is not integer
-        string = 'https://www.google.com/search?q=' + '+'.join(sys.argv[1:])  # use the 2nd element on
+        string = '' + ' '.join(sys.argv[1:])  # use the 2nd element on
 else:
-    string = 'https://www.google.com/search?q=jobs'  # start of searching string
+    string = 'jobs'  # start of searching string
 
 print('using: ' + string)  # print out to the user what exact search it is doing
-res = requests.get(string)  # requests module pulls the html from the url
-soup = bs4.BeautifulSoup(res.text, "html.parser")  # create a soup obj that parses the html from the request
-p_elems = soup.select('div[class="kCrYT"] > a')  # select the urls on the google page
+
+list_urls = []  # empty list for incoming urls
+
+for data in search(string, stop=20):  # for each piece of data in the search that stops at 20
+    list_urls.append(data)  # add that data to the list of urls
+    print(data)  # output to user
 
 """
 # the following code will put the p_elems into a que
@@ -61,13 +65,12 @@ for elem in p_elems:
     url_que.put(elem)
 """
 
-for i in range(len(p_elems)):  # for each index value in the length of the search result urls
-    word = p_elems[i].get('href')  # get the url out of the html element
-    index_value = word.find('&')  # find the index of the & symbol as to remove the extra data
-    url = p_elems[i].get('href')[7:int(index_value)]  # change the url to get the url minus the extra data
-    print('\nResult #' + str(i) + ': ' + url)  # output to the user
+new_iteration = 1  # to keep track of what iteration of scraping we are on
 
-    new_res = requests.get(url)  # new request pull of this url
+for data in list_urls:  # for each index value in the length of the search result urls
+    print('\nResult #' + str(new_iteration) + ': ' + data)  # output to the user
+
+    new_res = requests.get(data)  # new request pull of this url
 
     html_soup = bs4.BeautifulSoup(new_res.text, 'html.parser')  # parse the html of the url into an object
 
@@ -121,7 +124,9 @@ for i in range(len(p_elems)):  # for each index value in the length of the searc
 
     # create the reference dictionary with the data for each item
     rank_dict[title] = {'Tech': tech_count, 'Career': career_count, 'Email List': email_list,
-                        'Computer': computer_count, 'url': url}
+                        'Computer': computer_count, 'url': data}
+
+    new_iteration += 1
 
 pprint.pprint(rank_dict)  # pprint the dictionary
 
