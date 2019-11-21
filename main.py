@@ -9,6 +9,7 @@ import bs4  # for use of parsing the html file
 import os  # for use of system
 import re  # for use of searching
 import pprint  # for use of pprinting
+import multiprocessing  # to que up the url's
 import openpyxl  # for use of excel files
 from openpyxl.utils import get_column_letter  # getting the get_colum_letter function
 
@@ -32,20 +33,33 @@ email_regex = re.compile(r'''
     ([a-zA-Z0-9]+@[a-zA-Z0-9.]+)
 ''', re.VERBOSE)
 
-if sys.argv.__len__() >= 2:
-    string = 'https://www.google.com/search?q=' + '+' .join(sys.argv[1:])  # checks for command arguements
+# variables
+url_que = multiprocessing.Queue()  # initialize the que
+processes = []  # array for the process
+numProcesses = 1  # number of process that will be used
+rank_dict = {}  # empty dictionary for data to be dumped into
+
+
+# checks for command arguements
+if sys.argv.__len__() > 1:
+    if isinstance(sys.argv[1], int):  # if 1 element is an integer
+        numProcesses = sys.argv[1]
+        string = 'https://www.google.com/search?q=' + '+' .join(sys.argv[2:])   # use the 3rd element on
+    else:  # if the 1 element is not integer
+        string = 'https://www.google.com/search?q=' + '+'.join(sys.argv[1:])  # use the 2nd element on
 else:
     string = 'https://www.google.com/search?q=jobs'  # start of searching string
 
 print('using: ' + string)  # print out to the user what exact search it is doing
-
 res = requests.get(string)  # requests module pulls the html from the url
-
 soup = bs4.BeautifulSoup(res.text, "html.parser")  # create a soup obj that parses the html from the request
-
 p_elems = soup.select('div[class="kCrYT"] > a')  # select the urls on the google page
 
-rank_dict = {}  # empty dictionary for data to be dumped into
+"""
+# the following code will put the p_elems into a que
+for elem in p_elems:
+    url_que.put(elem)
+"""
 
 for i in range(len(p_elems)):  # for each index value in the length of the search result urls
     word = p_elems[i].get('href')  # get the url out of the html element
