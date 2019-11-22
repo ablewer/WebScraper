@@ -5,14 +5,7 @@ excel file.
 Using the googlesearch module made by Mario Vilas at https://breakingcode.wordpress.com/
 '''
 
-import sys  # for use in the sys.argv
-import requests  # for use in getting the web page
-import bs4  # for use of parsing the html file
-import os  # for use of system
-import re  # for use of searching
-import pprint  # for use of pprinting
-import multiprocessing  # to que up the url's
-import openpyxl  # for use of excel files
+import sys, requests, bs4, os, re, pprint, multiprocessing, openpyxl
 from openpyxl.utils import get_column_letter  # getting the get_colum_letter function
 from googlesearch import search
 
@@ -113,7 +106,7 @@ if sys.argv.__len__() > 1:
 else:
     string = 'jobs'  # start of searching string
 
-print('using: ' + string)  # print out to the user what exact search it is doing
+#print('using: ' + string)  # print out to the user what exact search it is doing
 
 for data in search(string, stop=10):  # for each piece of data in the search that stops at 20
     url_que.put(data)  # place the data into a que
@@ -125,70 +118,6 @@ if __name__ == '__main__':
         processes[processId].start()
         url_que.put(None)
 
-"""
-new_iteration = 1  # to keep track of what iteration of scraping we are on
-for data in list_urls:  # for each index value in the length of the search result urls
-    print('\nResult #' + str(new_iteration) + ': ' + data)  # output to the user
-    
-    new_res = requests.get(data)  # new request pull of this url
-
-    html_soup = bs4.BeautifulSoup(new_res.text, 'html.parser')  # parse the html of the url into an object
-
-    new_elems = html_soup.select('title')  # find the element named title
-
-    title = ''  # create an empty string for use later
-
-    if new_elems:  # if the object is not None
-        for j in range(len(new_elems)):  # for each index value j in range of the amount of items found (should be 1)
-            title = new_elems[j].text  # title is now equal to the text of this object
-
-    mo = technology_regex.findall(new_res.text.lower())  # search the html for all technology key words
-
-    tech_count = 0  # tech keyword search count set to an initial number of zero
-
-    if mo:  # if mo is not None
-        for j in mo:  # for each object in mo
-            tech_count += 1  # add one to the tech count search
-
-    mo = careers_regex.findall(new_res.text.lower())  # search the html for career key words
-
-    career_count = 0  # career_count set to zero
-
-    if mo:  # if mo is not None
-        for j in mo:  # for each object in mo
-            career_count += 1  # add one to the career count search
-
-    mo = email_regex.findall(new_res.text.lower())  # search the html for emails
-
-    email_list = []  # create an empty list to add emails to
-
-    if mo:  # if mo is not None
-        for j in mo:  # for each object in mo
-            email_list.append(j)  # add that item to the email list
-
-    computer_count = 0  # computer_count set to zero
-
-    mo = computer_regex.findall(new_res.text.lower())  # search the html for computer keywords
-
-    if mo:  # if the search is not None
-        for j in mo:  # for each j in mo
-            computer_count += 1  # add one to the computer count search
-
-    print('Tech Search hit count: ' + str(tech_count))  # output to user (can be deleted)
-    print('Career Search hit count: ' + str(career_count))  # output to user (can be deleted)
-    print('Computer Search hit Count: ' + str(computer_count))  # output to user (can be deleted)
-
-    print('Email List:')   # output to user (can be deleted)
-    for email in email_list:   # output to user (can be deleted)
-        print('\t' + email)
-
-    # create the reference dictionary with the data for each item
-    rank_dict[title] = {'Tech': tech_count, 'Career': career_count, 'Email List': email_list,
-                        'Computer': computer_count, 'url': data}
-    
-
-    new_iteration += 1
-    """
 pprint.pprint(rank_dict)  # pprint the dictionary
 
 excel_file = openpyxl.Workbook()  # create an empty dictionary
