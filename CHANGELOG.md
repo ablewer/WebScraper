@@ -18,3 +18,13 @@
 **Testing from 11/20/2019**
 -   Added basic excel output, basically takes the data from the already built dictionary but organizes it into an excel file
 -   Will need more information and data to collect and organize but for now it's a very basic functioning prototype of the project
+
+**Changelog from 11/21/2019**
+-   turned the parsing into a function that could be passed to the multiprocessing
+-   added basic functionality to multiprocessing with skeleton to allow for user determined input
+-   added code to allow for googlesearch module which allows n number of searches. (locked out around 300-500)
+
+**Testing from 11/21/2019**
+-   Testing: URLs pull into a que which are currently being passed to the multiprocessing.  I found that there was excess
+    printing after the call statement.  Will need to find what is causing this.  The dictionary can be controlled using
+    the manager module.  - AMB
