@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="112a2a90-bf3b-4333-b8eb-a7c7ea08e1ef" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.google-cookie" beforeDir="false" afterPath="$PROJECT_DIR$/.google-cookie" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShawnTestData.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/ShawnTestData.xlsx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -170,7 +171,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574366785907</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="added credit to the googlesearch module's author">
+      <created>1574367167131</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1574367167131</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,6 +204,7 @@
     <MESSAGE value="Added Email and computer search functions to prototype" />
     <MESSAGE value="Added basic excel output" />
     <MESSAGE value="Changed google web-scrape to google search module" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed google web-scrape to google search module" />
+    <MESSAGE value="added credit to the googlesearch module's author" />
+    <option name="LAST_COMMIT_MESSAGE" value="added credit to the googlesearch module's author" />
   </component>
 </project>
