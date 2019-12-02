@@ -6,14 +6,15 @@ Using the googlesearch module made by Mario Vilas at https://breakingcode.wordpr
 '''
 
 import sys, requests, bs4, os, re, pprint, multiprocessing, openpyxl
-from multiprocessing import freeze_support
+from multiprocessing import freeze_support, Manager
 
 from openpyxl.utils import get_column_letter  # getting the get_colum_letter function
 from googlesearch import search
 
+
 # functions
 # this function will take the URL's and find the HTML data, saving each to a Dictionary
-def parse_data(id, q):
+def parse_data(id, q, d):
     while True:
         item = q.get()
         if item is None:
@@ -68,9 +69,11 @@ def parse_data(id, q):
             print('\t' + email)
 
         # create the reference dictionary with the data for each item
-        rank_dict[title] = {'Tech': tech_count, 'Career': career_count, 'Email List': email_list,
-                            'Computer': computer_count, 'url': data}
+        d[title] = {'Tech': tech_count, 'Career': career_count, 'Email List': email_list,
+                    'Computer': computer_count, 'url': data}
+
         print("Thread: " + (str(id) + " closed"))
+
 
 # regex to search for technology keywords
 technology_regex = re.compile(r'''
@@ -95,82 +98,86 @@ email_regex = re.compile(r'''
 # variables
 url_que = multiprocessing.Queue()  # initialize the que
 processes = []  # array for the process
-numProcesses = multiprocessing.cpu_count() # number of process that will be used
-#manager = multiprocessing.Manager()
-#rank_dict = manager.dict()  # empty dictionary for data to be dumped into
-rank_dict = {}
+numProcesses = multiprocessing.cpu_count()  # number of process that will be used
+# manager = multiprocessing.Manager()
+# rank_dict = manager.dict()  # empty dictionary for data to be dumped into
 
 # checks for command arguements
 if sys.argv.__len__() > 1:
     if isinstance(sys.argv[1], int):  # if 1 element is an integer
         numProcesses = sys.argv[1]
-        string = '' + ' ' .join(sys.argv[2:])   # use the 3rd element on
+        string = '' + ' '.join(sys.argv[2:])  # use the 3rd element on
     else:  # if the 1 element is not integer
         string = '' + ' '.join(sys.argv[1:])  # use the 2nd element on
 else:
     string = 'jobs'  # start of searching string
 
-#print('using: ' + string)  # print out to the user what exact search it is doing
+# print('using: ' + string)  # print out to the user what exact search it is doing
 
 for data in search(string, stop=10):  # for each piece of data in the search that stops at 20
     url_que.put(data)  # place the data into a que
 
 # start consumers
 if __name__ == '__main__':
+
+    manager = Manager()
+    d = manager.dict()
+
     for processId in range(numProcesses):
-        processes.append(multiprocessing.Process(target=parse_data, args=(processId, url_que)))
+        processes.append(multiprocessing.Process(target=parse_data, args=(processId, url_que, d)))
         processes[processId].start()
         url_que.put(None)
 
-for p in processes:
-    p.join()
+    for p in processes:
+        p.join()
 
-pprint.pprint(rank_dict)  # pprint the dictionary
+    pprint.pprint(d)  # pprint the dictionary
 
-excel_file = openpyxl.Workbook()  # create an empty dictionary
+    excel_file = openpyxl.Workbook()  # create an empty dictionary
 
-sheet = excel_file.active  # get the active sheet
+    sheet = excel_file.active  # get the active sheet
 
-# create a list for the titles of the columns
-title_list = ['Title', 'Email', 'Career', 'Computer', 'Tech', 'URL']
+    # create a list for the titles of the columns
+    title_list = ['Title', 'Email', 'Career', 'Computer', 'Tech', 'URL']
 
-iteration = 1  # set iteration to 1
+    iteration = 1  # set iteration to 1
 
-for value in title_list:  # for each value in the title list
-    cell = str(get_column_letter(iteration) + str(1))  # set the cell value equal to the current column at row 1
-    sheet[cell] = value  # change the value of that cell to the value in the title list
-    iteration += 1  # add one to the iteration to change the column
+    for value in title_list:  # for each value in the title list
+        cell = str(get_column_letter(iteration) + str(1))  # set the cell value equal to the current column at row 1
+        sheet[cell] = value  # change the value of that cell to the value in the title list
+        iteration += 1  # add one to the iteration to change the column
 
-iteration = 2  # set the iteration 2
-for value in rank_dict:  # for each value in the reference dictionary
-    cell = str(get_column_letter(1) + str(iteration))  # get the cell equal to the first column current row fo iteration
-    sheet[cell] = value  # change that cell to that value
+    iteration = 2  # set the iteration 2
+    for value in d:  # for each value in the reference dictionary
+        cell = str(
+            get_column_letter(1) + str(iteration))  # get the cell equal to the first column current row fo iteration
+        sheet[cell] = value  # change that cell to that value
 
-    cell = str(get_column_letter(2) + str(iteration))  # cell at second column current row
-    message = ''  # empty string
-    for item in rank_dict[value]['Email List']:  # for each item in the email list
-        message += str(item + '\n')  # add the email to the message plus a new line character
-    sheet[cell] = message  # set the cell equal to message
+        cell = str(get_column_letter(2) + str(iteration))  # cell at second column current row
+        message = ''  # empty string
+        for item in d[value]['Email List']:  # for each item in the email list
+            message += str(item + '\n')  # add the email to the message plus a new line character
+        sheet[cell] = message  # set the cell equal to message
 
-    # set the 3rd column current row equal to career count
-    cell = str(get_column_letter(3) + str(iteration))
-    sheet[cell] = rank_dict[value]['Career']
+        # set the 3rd column current row equal to career count
+        cell = str(get_column_letter(3) + str(iteration))
+        sheet[cell] = d[value]['Career']
 
-    # set the 4th column current row equal to Computer count
-    cell = str(get_column_letter(4) + str(iteration))
-    sheet[cell] = rank_dict[value]['Computer']
+        # set the 4th column current row equal to Computer count
+        cell = str(get_column_letter(4) + str(iteration))
+        sheet[cell] = d[value]['Computer']
 
-    # set the 5th column current row equal to Tech count
-    cell = str(get_column_letter(5) + str(iteration))
-    sheet[cell] = rank_dict[value]['Tech']
+        # set the 5th column current row equal to Tech count
+        cell = str(get_column_letter(5) + str(iteration))
+        sheet[cell] = d[value]['Tech']
 
-    # set the 6th column current row equal to the url
-    cell = str(get_column_letter(6) + str(iteration))
-    sheet[cell] = rank_dict[value]['url']
+        # set the 6th column current row equal to the url
+        cell = str(get_column_letter(6) + str(iteration))
+        sheet[cell] = d[value]['url']
 
-    # make the iteration move one
-    iteration += 1
+        # make the iteration move one
+        iteration += 1
 
-excel_file.save('ShawnTestData.xlsx')  # save the excel file
+    excel_file.save('ShawnTestData.xlsx')  # save the excel file
 
-excel_file.close()  # close the excel file
+    excel_file.close()  # close the excel file
