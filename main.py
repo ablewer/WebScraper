@@ -70,7 +70,7 @@ def parse_data(id, q, d):
 
         # create the reference dictionary with the data for each item
         d[title] = {'Tech': tech_count, 'Career': career_count, 'Email List': email_list,
-                    'Computer': computer_count, 'url': data}
+                    'Computer': computer_count, 'url': item}
 
         print("Thread: " + (str(id) + " closed"))
 
@@ -138,7 +138,7 @@ if __name__ == '__main__':
     sheet = excel_file.active  # get the active sheet
 
     # create a list for the titles of the columns
-    title_list = ['Title', 'Email', 'Career', 'Computer', 'Tech', 'URL']
+    title_list = ['Title', 'URL', 'Career', 'Computer', 'Tech', 'Email']
 
     iteration = 1  # set iteration to 1
 
@@ -153,7 +153,7 @@ if __name__ == '__main__':
             get_column_letter(1) + str(iteration))  # get the cell equal to the first column current row fo iteration
         sheet[cell] = value  # change that cell to that value
 
-        cell = str(get_column_letter(2) + str(iteration))  # cell at second column current row
+        cell = str(get_column_letter(6) + str(iteration))  # cell at second column current row
         message = ''  # empty string
         for item in d[value]['Email List']:  # for each item in the email list
             message += str(item + '\n')  # add the email to the message plus a new line character
@@ -172,7 +172,7 @@ if __name__ == '__main__':
         sheet[cell] = d[value]['Tech']
 
         # set the 6th column current row equal to the url
-        cell = str(get_column_letter(6) + str(iteration))
+        cell = str(get_column_letter(2) + str(iteration))
         sheet[cell] = d[value]['url']
 
         # make the iteration move one
