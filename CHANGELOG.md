@@ -28,3 +28,7 @@
 -   Testing: URLs pull into a que which are currently being passed to the multiprocessing.  I found that there was excess
     printing after the call statement.  Will need to find what is causing this.  The dictionary can be controlled using
     the manager module.  - AMB
+
+**Additions from 12/2/2019**
+-   Added dictionary manager to multiprocessing to merge the dictionaries (possible might need tweaking)
+-   Need to add the resume check and the email tester now.

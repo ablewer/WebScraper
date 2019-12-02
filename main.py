@@ -7,7 +7,6 @@ Using the googlesearch module made by Mario Vilas at https://breakingcode.wordpr
 
 import sys, requests, bs4, os, re, pprint, multiprocessing, openpyxl
 from multiprocessing import freeze_support, Manager
-
 from openpyxl.utils import get_column_letter  # getting the get_colum_letter function
 from googlesearch import search
 

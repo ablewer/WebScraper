@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="112a2a90-bf3b-4333-b8eb-a7c7ea08e1ef" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/TestingEmails.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.google-cookie" beforeDir="false" afterPath="$PROJECT_DIR$/.google-cookie" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/WebScraper.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WebScraper.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ShawnTestData.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/ShawnTestData.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -208,7 +206,21 @@
       <option name="project" value="LOCAL" />
       <updated>1574367167131</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added a dictionary manager to merge the dictionary between dictionaries in different threads">
+      <created>1575306627083</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1575306627083</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Changed the format for excel and urls should be fixed">
+      <created>1575306783224</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1575306783224</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -235,6 +247,8 @@
     <MESSAGE value="Added basic excel output" />
     <MESSAGE value="Changed google web-scrape to google search module" />
     <MESSAGE value="added credit to the googlesearch module's author" />
-    <option name="LAST_COMMIT_MESSAGE" value="added credit to the googlesearch module's author" />
+    <MESSAGE value="Added a dictionary manager to merge the dictionary between dictionaries in different threads" />
+    <MESSAGE value="Changed the format for excel and urls should be fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed the format for excel and urls should be fixed" />
   </component>
 </project>
