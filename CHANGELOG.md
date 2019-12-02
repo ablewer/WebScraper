@@ -32,3 +32,6 @@
 **Additions from 12/2/2019**
 -   Added dictionary manager to multiprocessing to merge the dictionaries (possible might need tweaking)
 -   Need to add the resume check and the email tester now.
+
+**Testing from 12/2/2019**
+-   Started testing the Bing Search API (through Microsoft Azure Cognitive Services) as a potential web search option.
