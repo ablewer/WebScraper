@@ -6,6 +6,8 @@ Using the googlesearch module made by Mario Vilas at https://breakingcode.wordpr
 '''
 
 import sys, requests, bs4, os, re, pprint, multiprocessing, openpyxl
+from multiprocessing import freeze_support
+
 from openpyxl.utils import get_column_letter  # getting the get_colum_letter function
 from googlesearch import search
 
@@ -68,6 +70,7 @@ def parse_data(id, q):
         # create the reference dictionary with the data for each item
         rank_dict[title] = {'Tech': tech_count, 'Career': career_count, 'Email List': email_list,
                             'Computer': computer_count, 'url': data}
+        print("Thread: " + (str(id) + " closed"))
 
 # regex to search for technology keywords
 technology_regex = re.compile(r'''
@@ -92,9 +95,10 @@ email_regex = re.compile(r'''
 # variables
 url_que = multiprocessing.Queue()  # initialize the que
 processes = []  # array for the process
-numProcesses = 24  # number of process that will be used
-rank_dict = {}  # empty dictionary for data to be dumped into
-
+numProcesses = multiprocessing.cpu_count() # number of process that will be used
+#manager = multiprocessing.Manager()
+#rank_dict = manager.dict()  # empty dictionary for data to be dumped into
+rank_dict = {}
 
 # checks for command arguements
 if sys.argv.__len__() > 1:
@@ -117,6 +121,9 @@ if __name__ == '__main__':
         processes.append(multiprocessing.Process(target=parse_data, args=(processId, url_que)))
         processes[processId].start()
         url_que.put(None)
+
+for p in processes:
+    p.join()
 
 pprint.pprint(rank_dict)  # pprint the dictionary
 
