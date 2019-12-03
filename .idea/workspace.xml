@@ -4,7 +4,6 @@
     <list default="true" id="112a2a90-bf3b-4333-b8eb-a7c7ea08e1ef" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.google-cookie" beforeDir="false" afterPath="$PROJECT_DIR$/.google-cookie" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ShawnTestData.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/ShawnTestData.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -220,7 +219,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575306783224</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="updated changelog">
+      <created>1575307273788</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1575307273788</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -249,6 +255,7 @@
     <MESSAGE value="added credit to the googlesearch module's author" />
     <MESSAGE value="Added a dictionary manager to merge the dictionary between dictionaries in different threads" />
     <MESSAGE value="Changed the format for excel and urls should be fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed the format for excel and urls should be fixed" />
+    <MESSAGE value="updated changelog" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated changelog" />
   </component>
 </project>

@@ -91,7 +91,7 @@ careers_regex = re.compile(r'''
 
 # regex to search for emails
 email_regex = re.compile(r'''
-    ([a-zA-Z0-9]+@[a-zA-Z0-9.]+)
+    ([a-zA-Z0-9]+@\w+\.\w+)
 ''', re.VERBOSE)
 
 # variables
