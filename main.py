@@ -141,43 +141,43 @@ if __name__ == '__main__':
     # create a list for the titles of the columns
     title_list = ['Title', 'URL', 'Career', 'Computer', 'Tech', 'Email']
 
-    iteration = 1  # set iteration to 1
+    row_num = 1  # set iteration to 1
 
     for value in title_list:  # for each value in the title list
-        cell = str(get_column_letter(iteration) + str(1))  # set the cell value equal to the current column at row 1
+        cell = str(get_column_letter(row_num) + str(1))  # set the cell value equal to the current column at row 1
         sheet[cell] = value  # change the value of that cell to the value in the title list
-        iteration += 1  # add one to the iteration to change the column
+        row_num += 1  # add one to the iteration to change the column
 
-    iteration = 2  # set the iteration 2
+    row_num = 2  # set the iteration 2
     for value in d:  # for each value in the reference dictionary
         cell = str(
-            get_column_letter(1) + str(iteration))  # get the cell equal to the first column current row fo iteration
+            get_column_letter(1) + str(row_num))  # get the cell equal to the first column current row fo iteration
         sheet[cell] = value  # change that cell to that value
 
-        cell = str(get_column_letter(6) + str(iteration))  # cell at second column current row
+        cell = str(get_column_letter(6) + str(row_num))  # cell at second column current row
         message = ''  # empty string
         for item in d[value]['Email List']:  # for each item in the email list
             message += str(item + '\n')  # add the email to the message plus a new line character
         sheet[cell] = message  # set the cell equal to message
 
         # set the 3rd column current row equal to career count
-        cell = str(get_column_letter(3) + str(iteration))
+        cell = str(get_column_letter(3) + str(row_num))
         sheet[cell] = d[value]['Career']
 
         # set the 4th column current row equal to Computer count
-        cell = str(get_column_letter(4) + str(iteration))
+        cell = str(get_column_letter(4) + str(row_num))
         sheet[cell] = d[value]['Computer']
 
         # set the 5th column current row equal to Tech count
-        cell = str(get_column_letter(5) + str(iteration))
+        cell = str(get_column_letter(5) + str(row_num))
         sheet[cell] = d[value]['Tech']
 
         # set the 6th column current row equal to the url
-        cell = str(get_column_letter(2) + str(iteration))
+        cell = str(get_column_letter(2) + str(row_num))
         sheet[cell] = d[value]['url']
 
         # make the iteration move one
-        iteration += 1
+        row_num += 1
 
     excel_file.save('ShawnTestData.xlsx')  # save the excel file
 
