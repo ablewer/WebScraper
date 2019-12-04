@@ -50,7 +50,7 @@ def parse_data(id, q, d):
         email_list = []  # create an empty list to add emails to
         if mo:  # if mo is not None
             for j in mo:  # for each object in mo
-                email_list.append(j)  # add that item to the email list
+                email_list.append(j[0])  # add that item to the email list
 
         # find the computer related key words
         computer_count = 0  # computer_count set to zero
@@ -91,7 +91,7 @@ careers_regex = re.compile(r'''
 
 # regex to search for emails
 email_regex = re.compile(r'''
-    ([a-zA-Z0-9]+@\w+\.\w+)
+    ([a-zA-Z0-9.]+@\w+\.(com|ord|edu|net))
 ''', re.VERBOSE)
 
 # variables
@@ -113,7 +113,9 @@ else:
 
 # print('using: ' + string)  # print out to the user what exact search it is doing
 
-for data in search(string, stop=10):  # for each piece of data in the search that stops at 20
+stop_num = 10  # int for number of items google searches for
+
+for data in search(string, stop=stop_num):  # for each piece of data in the search that stops at 20
     url_que.put(data)  # place the data into a que
 
 # start consumers
