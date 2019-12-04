@@ -141,14 +141,14 @@ if __name__ == '__main__':
     # create a list for the titles of the columns
     title_list = ['Title', 'URL', 'Career', 'Computer', 'Tech', 'Email']
 
-    row_num = 1  # set iteration to 1
+    col_num = 1  # set column number to 1 or A
 
     for value in title_list:  # for each value in the title list
-        cell = str(get_column_letter(row_num) + str(1))  # set the cell value equal to the current column at row 1
+        cell = str(get_column_letter(col_num) + str(1))  # set the cell value equal to the current column at row 1
         sheet[cell] = value  # change the value of that cell to the value in the title list
-        row_num += 1  # add one to the iteration to change the column
+        col_num += 1  # add one to the row number to change the column
 
-    row_num = 2  # set the iteration 2
+    row_num = 2  # set the row number to 2 or B
     for value in d:  # for each value in the reference dictionary
         cell = str(
             get_column_letter(1) + str(row_num))  # get the cell equal to the first column current row fo iteration
@@ -176,7 +176,7 @@ if __name__ == '__main__':
         cell = str(get_column_letter(2) + str(row_num))
         sheet[cell] = d[value]['url']
 
-        # make the iteration move one
+        # increase the column number
         row_num += 1
 
     excel_file.save('ShawnTestData.xlsx')  # save the excel file
