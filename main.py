@@ -118,9 +118,9 @@ if __name__ == '__main__':
 
     # print('using: ' + string)  # print out to the user what exact search it is doing
 
-    stop_num = 10  # int for number of items google searches for
+    stop_num = 30  # int for number of items google searches for
 
-    start_num = 1
+    start_num = 1  # starting number for percentage output
 
     for data in search(string, stop=stop_num):  # for each piece of data in the search that stops at 20
         url_que.put(data)  # place the data into a que

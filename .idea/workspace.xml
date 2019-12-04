@@ -269,7 +269,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575478975265</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Changed output to be more streamlined.">
+      <created>1575480280624</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1575480280624</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -302,6 +309,7 @@
     <MESSAGE value="Emails should only pull real emails now. Also added testing into linkedIn and monster.com." />
     <MESSAGE value="Changed variable iteration to row_num in main.py" />
     <MESSAGE value="Further fixed Variable names" />
-    <option name="LAST_COMMIT_MESSAGE" value="Further fixed Variable names" />
+    <MESSAGE value="Changed output to be more streamlined." />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed output to be more streamlined." />
   </component>
 </project>
