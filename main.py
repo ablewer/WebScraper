@@ -19,6 +19,8 @@ def parse_data(id, q, d):
         if item is None:
             break
 
+        print('Scraping url: ' + item + ' Thread: ' + (str(id) + ' open.'))
+
         new_res = requests.get(item)  # new request pull of this url
 
         html_soup = bs4.BeautifulSoup(new_res.text, 'html.parser')  # parse the html of the url into an object
@@ -59,19 +61,19 @@ def parse_data(id, q, d):
             for j in mo:  # for each j in mo
                 computer_count += 1  # add one to the computer count search
 
-        print('Tech Search hit count: ' + str(tech_count))  # output to user (can be deleted)
-        print('Career Search hit count: ' + str(career_count))  # output to user (can be deleted)
-        print('Computer Search hit Count: ' + str(computer_count))  # output to user (can be deleted)
+        #print('Tech Search hit count: ' + str(tech_count))  # output to user (can be deleted)
+        #print('Career Search hit count: ' + str(career_count))  # output to user (can be deleted)
+        #print('Computer Search hit Count: ' + str(computer_count))  # output to user (can be deleted)
 
-        print('Email List:')  # output to user (can be deleted)
-        for email in email_list:  # output to user (can be deleted)
-            print('\t' + email)
+        #print('Email List:')  # output to user (can be deleted)
+        #for email in email_list:  # output to user (can be deleted)
+            #print('\t' + email)
 
         # create the reference dictionary with the data for each item
         d[title] = {'Tech': tech_count, 'Career': career_count, 'Email List': email_list,
                     'Computer': computer_count, 'url': item}
 
-        print("Thread: " + (str(id) + " closed"))
+        print("Scraping done. Thread: " + (str(id) + " closed"))
 
 
 # regex to search for technology keywords
@@ -94,32 +96,36 @@ email_regex = re.compile(r'''
     ([a-zA-Z0-9.]+@\w+\.(com|ord|edu|net))
 ''', re.VERBOSE)
 
-# variables
-url_que = multiprocessing.Queue()  # initialize the que
-processes = []  # array for the process
-numProcesses = multiprocessing.cpu_count()  # number of process that will be used
-# manager = multiprocessing.Manager()
-# rank_dict = manager.dict()  # empty dictionary for data to be dumped into
-
-# checks for command arguements
-if sys.argv.__len__() > 1:
-    if isinstance(sys.argv[1], int):  # if 1 element is an integer
-        numProcesses = sys.argv[1]
-        string = '' + ' '.join(sys.argv[2:])  # use the 3rd element on
-    else:  # if the 1 element is not integer
-        string = '' + ' '.join(sys.argv[1:])  # use the 2nd element on
-else:
-    string = 'jobs'  # start of searching string
-
-# print('using: ' + string)  # print out to the user what exact search it is doing
-
-stop_num = 10  # int for number of items google searches for
-
-for data in search(string, stop=stop_num):  # for each piece of data in the search that stops at 20
-    url_que.put(data)  # place the data into a que
-
 # start consumers
 if __name__ == '__main__':
+
+    # variables
+    url_que = multiprocessing.Queue()  # initialize the que
+    processes = []  # array for the process
+    numProcesses = multiprocessing.cpu_count()  # number of process that will be used
+    # manager = multiprocessing.Manager()
+    # rank_dict = manager.dict()  # empty dictionary for data to be dumped into
+
+    # checks for command arguements
+    if sys.argv.__len__() > 1:
+        if isinstance(sys.argv[1], int):  # if 1 element is an integer
+            numProcesses = sys.argv[1]
+            string = '' + ' '.join(sys.argv[2:])  # use the 3rd element on
+        else:  # if the 1 element is not integer
+            string = '' + ' '.join(sys.argv[1:])  # use the 2nd element on
+    else:
+        string = 'jobs'  # start of searching string
+
+    # print('using: ' + string)  # print out to the user what exact search it is doing
+
+    stop_num = 10  # int for number of items google searches for
+
+    start_num = 1
+
+    for data in search(string, stop=stop_num):  # for each piece of data in the search that stops at 20
+        url_que.put(data)  # place the data into a que
+        print(str((start_num / stop_num) * 100) + '% done searching for urls')
+        start_num += 1
 
     manager = Manager()
     d = manager.dict()
