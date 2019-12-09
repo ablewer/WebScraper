@@ -1,23 +1,29 @@
 import openpyxl
 from openpyxl.utils import get_column_letter
 
-excel_file = openpyxl.Workbook()
+x = [['test', 'object'], ['second', 'joined']]
 
-print(excel_file)
+wb = openpyxl.load_workbook('Excel_Data.xlsx')
 
-sheet = excel_file.active
+sheets = wb.sheetnames
+for item in sheets:
+    if item != 'Sheet':
+        current_sheet = wb[item]
+        wb.remove(current_sheet)
 
-print(sheet)
+active_sheet = wb.active
+print(active_sheet)
 
-print(excel_file.sheetnames)
+sheets = wb.sheetnames
+print(sheets)
 
-for i in range(1, 5):
-    cell = str(get_column_letter(i) + '1')
+for index in range(len(x)):
+    string = 'Sheet' + str(index)
+    wb.create_sheet(string)
 
-    print(cell)
+sheets = wb.sheetnames
+print(sheets)
 
-    sheet[cell] = 5
+wb.save('Excel_Data.xlsx')
 
-excel_file.save('ShawnTestData.xlsx')
-
-excel_file.close()
+wb.close()

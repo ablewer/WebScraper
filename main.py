@@ -92,11 +92,6 @@ email_regex = re.compile(r'''
 # start consumers
 if __name__ == '__main__':
 
-    # variables
-    url_que = multiprocessing.Queue()  # initialize the que
-    processes = []  # array for the process
-    numProcesses = multiprocessing.cpu_count()  # number of process that will be used
-
     # checks for command arguements
     if sys.argv.__len__() > 1:
         if isinstance(sys.argv[1], int):  # if 1 element is an integer
@@ -107,107 +102,107 @@ if __name__ == '__main__':
     else:
         string = 'jobs'  # start of searching string
 
-    stop_num = 5  # int for number of items google searches for
-
-    start_num = 1  # starting number for percentage output
-
-    for data in search(string, stop=stop_num):  # for each piece of data in the search that stops at 20
-        url_que.put(data)  # place the data into a que
-        print(str(round((start_num / stop_num) * 100, 0)) + '% done searching for urls')
-        start_num += 1
-
-    manager = Manager()
-    d = manager.dict()
-
-    for processId in range(numProcesses):
-        processes.append(multiprocessing.Process(target=parse_data, args=(processId, url_que, d)))
-        processes[processId].start()
-        url_que.put(None)
-
-    for p in processes:
-        p.join()
-
-    pprint.pprint(d)  # pprint the dictionary
-
-    excel_file = openpyxl.Workbook()  # create an empty dictionary
-
-    sheet = excel_file.active  # get the active sheet
-
-    # create a list for the titles of the columns
-    title_list = ['Title', 'URL', 'Career', 'Computer', 'Tech', 'Email']
-
-    col_num = 1  # set column number to 1 or A
-
-    for value in title_list:  # for each value in the title list
-        cell = str(get_column_letter(col_num) + str(1))  # set the cell value equal to the current column at row 1
-        sheet[cell] = value  # change the value of that cell to the value in the title list
-        col_num += 1  # add one to the row number to change the column
-
-    row_num = 2  # set the row number to 2 or B
-    for value in d:  # for each value in the reference dictionary
-        cell = str(
-            get_column_letter(1) + str(row_num))  # get the cell equal to the first column current row fo iteration
-        sheet[cell] = value  # change that cell to that value
-
-        cell = str(get_column_letter(6) + str(row_num))  # cell at second column current row
-        message = ''  # empty string
-        for item in d[value]['Email List']:  # for each item in the email list
-            message += str(item + '\n')  # add the email to the message plus a new line character
-        sheet[cell] = message  # set the cell equal to message
-
-        # set the 3rd column current row equal to career count
-        cell = str(get_column_letter(3) + str(row_num))
-        sheet[cell] = d[value]['Career']
-
-        # set the 4th column current row equal to Computer count
-        cell = str(get_column_letter(4) + str(row_num))
-        sheet[cell] = d[value]['Computer']
-
-        # set the 5th column current row equal to Tech count
-        cell = str(get_column_letter(5) + str(row_num))
-        sheet[cell] = d[value]['Tech']
-
-        # set the 6th column current row equal to the url
-        cell = str(get_column_letter(2) + str(row_num))
-        sheet[cell] = d[value]['url']
-
-        # increase the column number
-        row_num += 1
-
-    excel_file.save('Excel_Data.xlsx')  # save the excel file
-
-    excel_file.close()  # close the excel file
-
-    print('Data saved to Excel_Data.xlsx Successfully')
-
     # read in the resume
-    resume = docx.Document("BlewerResume.docx")
-
-    print(resume)
-
     file_name = "BlewerResume.docx"
-
     resume_text = get_resume_text(file_name)
 
-    resume_tech_count = 0
-    mo = technology_regex.findall(resume_text)
-    if mo:
-        for item in mo:
-            resume_tech_count += 1
+    x = [['test', 'object'], ['second', 'joined']]
+    # this will represent the list of lists that will contain a list of strings
 
-    resume_comp_count = 0
-    mo = computer_regex.findall(resume_text)
-    if mo:
-        for item in mo:
-            resume_comp_count += 1
+    wb = openpyxl.load_workbook('Excel_Data.xlsx')  # load the excel file
+    sheets = wb.sheetnames  # load the names of all the sheets
+    for item in sheets:  # for every item in the list of sheets
+        if item != 'Sheet':  # if the name is not sheets
+            current_sheet = wb[item]  # get the sheet object
+            wb.remove(current_sheet)  # remove it from the work book
+    for index in range(len(x)):  # for index in range of the length of lists of lists
+        string = 'Sheet' + str(index)  # create a string with sheet and the number of the index
+        wb.create_sheet(string)  # create a new sheet object in the work book with this name
+    wb.save('Excel_Data.xlsx')  # save this to the file
+    wb.close()  # close the file
 
-    resume_career_count = 0
-    mo = careers_regex.findall(resume_text)
-    if mo:
-        for item in mo:
-            resume_career_count += 1
+    stop_num = 5  # int for number of items google searches for, the default number
 
-    print('The resume in file: ' + file_name + ' has:')
-    print('\t tech count: ' + str(resume_tech_count))
-    print('\t comp count: ' + str(resume_comp_count))
-    print('\t career count: ' + str(resume_career_count))
+    for list_item in x:  # for every list in the list of lists
+
+        # variables
+        url_que = multiprocessing.Queue()  # initialize the que
+        processes = []  # array for the process
+        numProcesses = multiprocessing.cpu_count()  # number of process that will be used
+
+        search_string = ''  # empty search string
+        for item in list_item:  # for every item inside the list
+            search_string += str(item) + ' OR '  # add every item to the empty string plus an OR
+        search_string += 'AND software developer jobs'  # end the search string with and software developer jobs
+        stop_num = round(35/len(x))  # set the stop number equal to that of 35 / length of the list of lists
+
+        start_num = 1  # starting number for percentage output
+        for data in search(search_string, stop=stop_num):  # for each piece of data in the search that stops at 20
+            url_que.put(data)  # place the data into a que
+            print(str(round((start_num / stop_num) * 100, 0)) + '% done searching for urls')
+            start_num += 1
+
+        manager = Manager()
+        d = manager.dict()
+
+        for processId in range(numProcesses):
+            processes.append(multiprocessing.Process(target=parse_data, args=(processId, url_que, d)))
+            processes[processId].start()
+            url_que.put(None)
+
+        for p in processes:
+            p.join()
+
+        pprint.pprint(d)  # pprint the dictionary
+
+        excel_file = openpyxl.load_workbook('Excel_Data.xlsx')  # load the excel file
+
+        sheet_string = 'Sheet' + str(x.index(list_item))  # create a sheet string of sheet and the current index
+        sheet = excel_file[sheet_string]  # get the sheet wanted
+
+        # create a list for the titles of the columns
+        title_list = ['Title', 'URL', 'Career', 'Computer', 'Tech', 'Email']
+
+        col_num = 1  # set column number to 1 or A
+
+        for value in title_list:  # for each value in the title list
+            cell = str(get_column_letter(col_num) + str(1))  # set the cell value equal to the current column at row 1
+            sheet[cell] = value  # change the value of that cell to the value in the title list
+            col_num += 1  # add one to the row number to change the column
+
+        row_num = 2  # set the row number to 2 or B
+        for value in d:  # for each value in the reference dictionary
+            cell = str(
+                get_column_letter(1) + str(row_num))  # get the cell equal to the first column current row fo iteration
+            sheet[cell] = value  # change that cell to that value
+
+            cell = str(get_column_letter(6) + str(row_num))  # cell at second column current row
+            message = ''  # empty string
+            for item in d[value]['Email List']:  # for each item in the email list
+                message += str(item + '\n')  # add the email to the message plus a new line character
+            sheet[cell] = message  # set the cell equal to message
+
+            # set the 3rd column current row equal to career count
+            cell = str(get_column_letter(3) + str(row_num))
+            sheet[cell] = d[value]['Career']
+
+            # set the 4th column current row equal to Computer count
+            cell = str(get_column_letter(4) + str(row_num))
+            sheet[cell] = d[value]['Computer']
+
+            # set the 5th column current row equal to Tech count
+            cell = str(get_column_letter(5) + str(row_num))
+            sheet[cell] = d[value]['Tech']
+
+            # set the 6th column current row equal to the url
+            cell = str(get_column_letter(2) + str(row_num))
+            sheet[cell] = d[value]['url']
+
+            # increase the column number
+            row_num += 1
+
+        excel_file.save('Excel_Data.xlsx')  # save the excel file
+
+        excel_file.close()  # close the excel file
+
+        print('Data saved to Excel_Data.xlsx Successfully')
