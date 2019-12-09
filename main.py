@@ -178,6 +178,6 @@ if __name__ == '__main__':
         # increase the column number
         row_num += 1
 
-    excel_file.save('ShawnTestData.xlsx')  # save the excel file
+    excel_file.save('Excel_Data.xlsx')  # save the excel file
 
     excel_file.close()  # close the excel file
