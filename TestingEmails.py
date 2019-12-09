@@ -156,6 +156,6 @@ for value in rank_dict:  # for each value in the reference dictionary
     # make the iteration move one
     iteration += 1
 
-excel_file.save('ShawnTestData.xlsx')  # save the excel file
+excel_file.save('Excel_Data.xlsx')  # save the excel file
 
 excel_file.close()  # close the excel file
