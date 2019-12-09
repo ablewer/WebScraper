@@ -1,7 +1,7 @@
-import docx
+import docx, re
 
 
-def get_text(file_name):
+def get_resume_text(file_name):
     doc = docx.Document(file_name)
     full_text = []
     for para in doc.paragraphs:
@@ -12,5 +12,3 @@ def get_text(file_name):
                 full_text.append(cell.text)
     return '\n'.join(full_text)
 
-
-print(get_text('RinglerShawn_Resume4.docx'))

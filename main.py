@@ -9,6 +9,7 @@ import sys, requests, bs4, os, re, pprint, multiprocessing, openpyxl, docx
 from multiprocessing import freeze_support, Manager
 from openpyxl.utils import get_column_letter  # getting the get_colum_letter function
 from googlesearch import search
+from ResumeTest import get_resume_text
 
 
 # functions
@@ -96,11 +97,6 @@ if __name__ == '__main__':
     processes = []  # array for the process
     numProcesses = multiprocessing.cpu_count()  # number of process that will be used
 
-    # read in the resume
-    resume = docx.opendocx("BlewerResume.docx")
-
-    print(resume)
-
     # checks for command arguements
     if sys.argv.__len__() > 1:
         if isinstance(sys.argv[1], int):  # if 1 element is an integer
@@ -181,3 +177,37 @@ if __name__ == '__main__':
     excel_file.save('Excel_Data.xlsx')  # save the excel file
 
     excel_file.close()  # close the excel file
+
+    print('Data saved to Excel_Data.xlsx Successfully')
+
+    # read in the resume
+    resume = docx.Document("BlewerResume.docx")
+
+    print(resume)
+
+    file_name = "BlewerResume.docx"
+
+    resume_text = get_resume_text(file_name)
+
+    resume_tech_count = 0
+    mo = technology_regex.findall(resume_text)
+    if mo:
+        for item in mo:
+            resume_tech_count += 1
+
+    resume_comp_count = 0
+    mo = computer_regex.findall(resume_text)
+    if mo:
+        for item in mo:
+            resume_comp_count += 1
+
+    resume_career_count = 0
+    mo = careers_regex.findall(resume_text)
+    if mo:
+        for item in mo:
+            resume_career_count += 1
+
+    print('The resume in file: ' + file_name + ' has:')
+    print('\t tech count: ' + str(resume_tech_count))
+    print('\t comp count: ' + str(resume_comp_count))
+    print('\t career count: ' + str(resume_career_count))
