@@ -5,7 +5,7 @@ excel file.
 Using the googlesearch module made by Mario Vilas at https://breakingcode.wordpress.com/
 '''
 
-import sys, requests, bs4, os, re, pprint, multiprocessing, openpyxl
+import sys, requests, bs4, os, re, pprint, multiprocessing, openpyxl, docx
 from multiprocessing import freeze_support, Manager
 from openpyxl.utils import get_column_letter  # getting the get_colum_letter function
 from googlesearch import search
@@ -61,14 +61,6 @@ def parse_data(id, q, d):
             for j in mo:  # for each j in mo
                 computer_count += 1  # add one to the computer count search
 
-        #print('Tech Search hit count: ' + str(tech_count))  # output to user (can be deleted)
-        #print('Career Search hit count: ' + str(career_count))  # output to user (can be deleted)
-        #print('Computer Search hit Count: ' + str(computer_count))  # output to user (can be deleted)
-
-        #print('Email List:')  # output to user (can be deleted)
-        #for email in email_list:  # output to user (can be deleted)
-            #print('\t' + email)
-
         # create the reference dictionary with the data for each item
         d[title] = {'Tech': tech_count, 'Career': career_count, 'Email List': email_list,
                     'Computer': computer_count, 'url': item}
@@ -103,8 +95,11 @@ if __name__ == '__main__':
     url_que = multiprocessing.Queue()  # initialize the que
     processes = []  # array for the process
     numProcesses = multiprocessing.cpu_count()  # number of process that will be used
-    # manager = multiprocessing.Manager()
-    # rank_dict = manager.dict()  # empty dictionary for data to be dumped into
+
+    # read in the resume
+    resume = docx.opendocx("BlewerResume.docx")
+
+    print(resume)
 
     # checks for command arguements
     if sys.argv.__len__() > 1:
@@ -116,15 +111,13 @@ if __name__ == '__main__':
     else:
         string = 'jobs'  # start of searching string
 
-    # print('using: ' + string)  # print out to the user what exact search it is doing
-
-    stop_num = 30  # int for number of items google searches for
+    stop_num = 5  # int for number of items google searches for
 
     start_num = 1  # starting number for percentage output
 
     for data in search(string, stop=stop_num):  # for each piece of data in the search that stops at 20
         url_que.put(data)  # place the data into a que
-        print(str((start_num / stop_num) * 100) + '% done searching for urls')
+        print(str(round((start_num / stop_num) * 100, 0)) + '% done searching for urls')
         start_num += 1
 
     manager = Manager()
