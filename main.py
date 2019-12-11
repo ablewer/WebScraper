@@ -103,11 +103,10 @@ if __name__ == '__main__':
     for resume in fileNames:
         doc = docx.Document(resume)
         for para in doc.paragraphs:
-            if doc.paragraphs[para].run[0].text.lower() == 'technical summary':
+            if para.text.lower() == 'technical summary':
                 techSummary[resume] = doc.paragraphs.run[1:]
 
-
-
+    x = []
     # checks for command arguements
     if sys.argv.__len__() > 1:
         if isinstance(sys.argv[1], int):  # if 1 element is an integer
@@ -117,8 +116,10 @@ if __name__ == '__main__':
             string = '' + ' '.join(sys.argv[1:])  # use the 2nd element on
     else:
         string = 'jobs'  # start of searching string
+    for key in techSummary.values():
+        print(key)
+        x.append(key)
 
-    x = [['test', 'object'], ['second', 'joined']]
     # this will represent the list of lists that will contain a list of strings
 
     wb = openpyxl.load_workbook('Excel_Data.xlsx')  # load the excel file
