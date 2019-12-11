@@ -104,8 +104,11 @@ if __name__ == '__main__':
     for resume in fileNames:
         doc = docx.Document(resume)
         for para_index in range(len(doc.paragraphs)):
+            # search a few different types of resumes
             if doc.paragraphs[para_index].text.lower() == 'technology summary' or \
-                    doc.paragraphs[para_index].text.lower() =='skills':
+                    doc.paragraphs[para_index].text.lower() =='skills' or \
+                    doc.paragraphs[para_index].text.lower() =='technical proficiency' or \
+                    doc.paragraphs[para_index].text.lower() =='technical summary':
                 var_string = ''
                 for string in doc.paragraphs[para_index + 1].runs:
                     var_string += string.text
