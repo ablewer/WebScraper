@@ -93,6 +93,7 @@ email_regex = re.compile(r'''
 if __name__ == '__main__':
 
     # read in the resume
+    x = []
     techSummary = {}
     fileNames = []
     for root, dirs, files in os.walk("."):
@@ -102,11 +103,17 @@ if __name__ == '__main__':
 
     for resume in fileNames:
         doc = docx.Document(resume)
-        for para in doc.paragraphs:
-            if para.text.lower() == 'technical summary':
-                techSummary[resume] = doc.paragraphs.run[1:]
+        for para_index in range(len(doc.paragraphs)):
+            if doc.paragraphs[para_index].text.lower() == 'technology summary':
+                var_string = ''
+                for string in doc.paragraphs[para_index + 1].runs:
+                    var_string += string.text
+                techSummary[resume] = var_string
 
-    x = []
+    for value in techSummary.values():
+        data = value.split()
+        x.append(data)
+
     # checks for command arguements
     if sys.argv.__len__() > 1:
         if isinstance(sys.argv[1], int):  # if 1 element is an integer

@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="112a2a90-bf3b-4333-b8eb-a7c7ea08e1ef" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ReadInResumeTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.google-cookie" beforeDir="false" afterPath="$PROJECT_DIR$/.google-cookie" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RinglerShawn_Resume.docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Excel_Data.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Excel_Data.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReadInResumeTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/ReadInResumeTest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RinglerShawn_Resume4.docx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -288,7 +288,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575481024482</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Added Resume Getter">
+      <created>1576083583409</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1576083583409</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -323,6 +330,7 @@
     <MESSAGE value="Further fixed Variable names" />
     <MESSAGE value="Changed output to be more streamlined." />
     <MESSAGE value="added some comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="added some comments" />
+    <MESSAGE value="Added Resume Getter" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Resume Getter" />
   </component>
 </project>
