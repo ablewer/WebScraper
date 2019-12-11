@@ -93,7 +93,7 @@ email_regex = re.compile(r'''
 if __name__ == '__main__':
 
     # read in the resume
-    techSummary ={}
+    techSummary = {}
     fileNames = []
     for root, dirs, files in os.walk("."):
         for filename in files:
@@ -103,7 +103,7 @@ if __name__ == '__main__':
     for resume in fileNames:
         doc = docx.Document(resume)
         for para in doc.paragraphs:
-            if doc.paragraphs[para].run[0].text.lower() == 'technical summary':
+            if para.text.lower() == 'technical summary':
                 techSummary[resume] = doc.paragraphs.run[1:]
 
 
