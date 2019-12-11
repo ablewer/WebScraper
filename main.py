@@ -92,6 +92,22 @@ email_regex = re.compile(r'''
 # start consumers
 if __name__ == '__main__':
 
+    # read in the resume
+    techSummary ={}
+    fileNames = []
+    for root, dirs, files in os.walk("."):
+        for filename in files:
+            if filename.endswith("Resume.docx"):
+                fileNames.append(filename)
+
+    for resume in fileNames:
+        doc = docx.Document(resume)
+        for para in doc.paragraphs:
+            if doc.paragraphs[para].run[0].text.lower() == 'technical summary':
+                techSummary[resume] = doc.paragraphs.run[1:]
+
+
+
     # checks for command arguements
     if sys.argv.__len__() > 1:
         if isinstance(sys.argv[1], int):  # if 1 element is an integer
@@ -101,10 +117,6 @@ if __name__ == '__main__':
             string = '' + ' '.join(sys.argv[1:])  # use the 2nd element on
     else:
         string = 'jobs'  # start of searching string
-
-    # read in the resume
-    file_name = "BlewerResume.docx"
-    resume_text = get_resume_text(file_name)
 
     x = [['test', 'object'], ['second', 'joined']]
     # this will represent the list of lists that will contain a list of strings
