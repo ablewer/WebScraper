@@ -104,7 +104,8 @@ if __name__ == '__main__':
     for resume in fileNames:
         doc = docx.Document(resume)
         for para_index in range(len(doc.paragraphs)):
-            if doc.paragraphs[para_index].text.lower() == 'technology summary':
+            if doc.paragraphs[para_index].text.lower() == 'technology summary' or \
+                    doc.paragraphs[para_index].text.lower() =='skills':
                 var_string = ''
                 for string in doc.paragraphs[para_index + 1].runs:
                     var_string += string.text
@@ -123,9 +124,6 @@ if __name__ == '__main__':
             string = '' + ' '.join(sys.argv[1:])  # use the 2nd element on
     else:
         string = 'jobs'  # start of searching string
-    for key in techSummary.values():
-        print(key)
-        x.append(key)
 
     # this will represent the list of lists that will contain a list of strings
 
