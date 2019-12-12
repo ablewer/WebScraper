@@ -20,6 +20,9 @@ def parse_data(id, q, d):
         if item is None:
             break
 
+        assert isinstance(item, str), 'Error: Item in func parse_data is not a string'
+        assert isinstance(id, int), 'Error: id in func parse_data is not an int'
+
         print('Scraping url: ' + item + ' Thread: ' + (str(id) + ' open.'))
 
         new_res = requests.get(item)  # new request pull of this url
@@ -104,6 +107,7 @@ if __name__ == '__main__':
     for resume in fileNames:
         doc = docx.Document(resume)
         for para_index in range(len(doc.paragraphs)):
+            assert isinstance(para_index, int), 'Error: para_index is not an int'
             # search a few different types of resumes
             if doc.paragraphs[para_index].text.lower() == 'technology summary' or \
                     doc.paragraphs[para_index].text.lower() =='skills' or \
@@ -115,6 +119,7 @@ if __name__ == '__main__':
                 techSummary[resume] = var_string
 
     for value in techSummary.values():
+        assert isinstance(value, str), 'Error: techSummary.values() does not return a string'
         data = value.split()
         x.append(data)
 
@@ -127,8 +132,7 @@ if __name__ == '__main__':
             string = '' + ' '.join(sys.argv[1:])  # use the 2nd element on
     else:
         string = 'jobs'  # start of searching string
-
-    # this will represent the list of lists that will contain a list of strings
+        print('Use: ')
 
     wb = openpyxl.load_workbook('Excel_Data.xlsx')  # load the excel file
     sheets = wb.sheetnames  # load the names of all the sheets
@@ -142,11 +146,13 @@ if __name__ == '__main__':
     wb.save('Excel_Data.xlsx')  # save this to the file
     wb.close()  # close the file
 
+    # setting up variables before function
     stop_num = 5  # int for number of items google searches for, the default number
-
     resume_name_list = list(techSummary.keys())  # create a list for the names of the resume from the dictionary
 
     for list_item in x:  # for every list in the list of lists
+
+        assert isinstance(list_item, list), 'Error: list_item is not a list'
 
         # variables
         url_que = multiprocessing.Queue()  # initialize the que
