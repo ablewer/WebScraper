@@ -136,13 +136,15 @@ if __name__ == '__main__':
         if item != 'Sheet':  # if the name is not sheets
             current_sheet = wb[item]  # get the sheet object
             wb.remove(current_sheet)  # remove it from the work book
-    for index in range(len(x)):  # for index in range of the length of lists of lists
-        string = 'Sheet' + str(index)  # create a string with sheet and the number of the index
+    for item in techSummary.keys():  # for index in range of the length of lists of lists
+        string = str(item)  # create a string with sheet and the number of the index
         wb.create_sheet(string)  # create a new sheet object in the work book with this name
     wb.save('Excel_Data.xlsx')  # save this to the file
     wb.close()  # close the file
 
     stop_num = 5  # int for number of items google searches for, the default number
+
+    resume_name_list = list(techSummary.keys())  # create a list for the names of the resume from the dictionary
 
     for list_item in x:  # for every list in the list of lists
 
@@ -178,7 +180,7 @@ if __name__ == '__main__':
 
         excel_file = openpyxl.load_workbook('Excel_Data.xlsx')  # load the excel file
 
-        sheet_string = 'Sheet' + str(x.index(list_item))  # create a sheet string of sheet and the current index
+        sheet_string = resume_name_list[x.index(list_item)]  # get the string of the resume name
         sheet = excel_file[sheet_string]  # get the sheet wanted
 
         # create a list for the titles of the columns
