@@ -238,18 +238,30 @@ if __name__ == '__main__':
 
     # for each sheet in the workbook get the title and email cells
     for sheet in sheets:
-        print(sheet)
         for row in range(2, wb[sheet].max_row + 1):
             title = wb[sheet]['A' + str(row)].value
             email = wb[sheet]['F' + str(row)].value
             sheetDict[title] = [email]  # create a dictionary of titles and emails
         emailDict[sheet] = sheetDict  # create a dicitonary of sheets and sheetDict
 
-    # read in your pw
-    passwordFile = open('password.txt')
-    password = passwordFile.readline()
-    email = passwordFile.readline()
-    individual = passwordFile.readline()
+
+    #read info from the command line
+    if sys.argv.__len__() > 2:
+        if isinstance(sys.argv[1], str):  # if 1 element is an integer
+            email = sys.argv[1]
+            print(email)
+        if isinstance(sys.argv[2], str):
+            password = sys.argv[2]
+
+
+        individual = '' +' ' .join(sys.argv[3:])  # use the 2nd element on
+        print(individual)
+    # if the information is not on the command line
+    else:
+        passwordFile = open('password.txt')
+        password = passwordFile.readline()
+        email = passwordFile.readline()
+        individual = passwordFile.readline()
 
     # access the emails
     smtpObj = smtplib.SMTP('smtp.gmail.com', 587)
