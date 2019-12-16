@@ -230,6 +230,15 @@ if __name__ == '__main__':
             # increase the column number
             row_num += 1
 
+        emailDict = {}
+        for sheet in sheets:
+            emailCell = wb[sheet].cell(row=1, column=6)
+            if emailCell.value == 'Email':
+                for row in range(2, wb[sheet].max_row):
+                    emailDict[sheet] = wb[sheet]['F' + str(row)]
+
+        pprint.pprint(emailDict)
+
         excel_file.save('Excel_Data.xlsx')  # save the excel file
 
         excel_file.close()  # close the excel file
