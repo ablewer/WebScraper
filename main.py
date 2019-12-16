@@ -249,6 +249,7 @@ if __name__ == '__main__':
     passwordFile = open('password.txt')
     password = passwordFile.readline()
     email = passwordFile.readline()
+    individual = passwordFile.readline()
     print(password)
     print(email)
 
@@ -258,6 +259,15 @@ if __name__ == '__main__':
     smtpObj.starttls()
     smtpObj.login(email, password)
 
+    # send the email
+    for resume in emailDict:
+        for careers in resume:
+            smtpObj.sendmail(email, email, 'Subject: 2 email test.\n'
+                                           ' Hello,\nI would like to introduce myself to you.  '
+                                           'I am ' + individual + 'and I believe your place of business would be a '
+                                           'great place for me to work.  I have attached my applicaiton.  Please '
+                                           'review it at your liesure.\nSincerely,\n' + individual)
+    {}
     # log out of email
     smtpObj.quit()
 
