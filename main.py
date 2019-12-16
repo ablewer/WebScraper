@@ -5,7 +5,7 @@ excel file.
 Using the googlesearch module made by Mario Vilas at https://breakingcode.wordpress.com/
 '''
 
-import sys, requests, bs4, os, re, pprint, multiprocessing, openpyxl, docx
+import sys, requests, bs4, os, re, pprint, multiprocessing, openpyxl, docx, smtplib
 from multiprocessing import freeze_support, Manager
 from openpyxl.utils import get_column_letter  # getting the get_colum_letter function
 from googlesearch import search
@@ -232,18 +232,34 @@ if __name__ == '__main__':
 
         excel_file.save('Excel_Data.xlsx')  # save the excel file
 
+    # create dictionaries for the email directory
     emailDict = {}
     sheetDict = {}
+
+    # for each sheet in the workbook get the title and email cells
     for sheet in sheets:
         print(sheet)
         for row in range(2, wb[sheet].max_row + 1):
             title = wb[sheet]['A' + str(row)].value
             email = wb[sheet]['F' + str(row)].value
-            sheetDict[title] = [email]
-        emailDict[sheet] = sheetDict
+            sheetDict[title] = [email]  # create a dictionary of titles and emails
+        emailDict[sheet] = sheetDict  # create a dicitonary of sheets and sheetDict
 
-    pprint.pprint(emailDict)
+    # read in your pw
+    passwordFile = open('password.txt')
+    password = passwordFile.readline()
+    email = passwordFile.readline()
+    print(password)
+    print(email)
 
+    # access the emails
+    smtpObj = smtplib.SMTP('smtp.gmail.com', 587)
+    smtpObj.ehlo()
+    smtpObj.starttls()
+    smtpObj.login(email, password)
+
+    # log out of email
+    smtpObj.quit()
 
     excel_file.close()  # close the excel file
 
