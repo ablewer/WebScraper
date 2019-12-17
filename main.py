@@ -94,6 +94,12 @@ email_regex = re.compile(r'''
 # start consumers
 if __name__ == '__main__':
 
+    # checks for command arguements
+    if sys.argv.__len__() <= 1:
+        string = 'jobs'  # start of searching string
+        print('Use: main.py [email] [password] [Your Name]')
+        sys.exit()
+
     # variables
     x = []  # for the list of list containing skills
     techSummary = {}  # reference dictionary for the technology summary from resumes
@@ -125,17 +131,6 @@ if __name__ == '__main__':
         assert isinstance(value, str), 'Error: techSummary.values() does not return a string'
         data = value.split()
         x.append(data)
-
-    # checks for command arguements
-    if sys.argv.__len__() > 1:
-        if isinstance(sys.argv[1], int):  # if 1 element is an integer
-            numProcesses = sys.argv[1]
-            string = '' + ' '.join(sys.argv[2:])  # use the 3rd element on
-        else:  # if the 1 element is not integer
-            string = '' + ' '.join(sys.argv[1:])  # use the 2nd element on
-    else:
-        string = 'jobs'  # start of searching string
-        print('Use: ')
 
     wb = openpyxl.load_workbook('Excel_Data.xlsx')  # load the excel file
     sheets = wb.sheetnames  # load the names of all the sheets
@@ -274,7 +269,7 @@ if __name__ == '__main__':
     # send the email
     for resume in emailDict:
         for careers in sheetDict.keys():
-            smtpObj.sendmail(email, email, 'Subject: 2 email test.\n' + careers +'\n\n' + str(sheetDict[careers]) + '\n\n'
+            smtpObj.sendmail(email, email, 'Subject: 2 email test.\n' + careers +'\n\n' + str(sheetDict[careers]) + '\n\n '
                                            'Hello,\nI would like to introduce myself to you.  '
                                            'I am ' + individual + ' and I believe your place of business would be a '
                                            'great place for me to work.  I have attached my application.  Please '

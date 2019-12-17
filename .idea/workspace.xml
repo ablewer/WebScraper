@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="112a2a90-bf3b-4333-b8eb-a7c7ea08e1ef" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.google-cookie" beforeDir="false" afterPath="$PROJECT_DIR$/.google-cookie" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/WebScraper.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WebScraper.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Excel_Data.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Excel_Data.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -304,7 +301,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576167797688</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Polished up the code and added comments">
+      <created>1576542578853</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1576542578853</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -341,6 +345,7 @@
     <MESSAGE value="added some comments" />
     <MESSAGE value="Added Resume Getter" />
     <MESSAGE value="Changed excel sheet names to resume file names" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed excel sheet names to resume file names" />
+    <MESSAGE value="Polished up the code and added comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="Polished up the code and added comments" />
   </component>
 </project>
