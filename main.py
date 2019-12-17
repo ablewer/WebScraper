@@ -1,15 +1,14 @@
-'''
+"""
 This program's function is to pull data about jobs and careers specified by the user and organizes the data into an
 excel file.
 
 Using the googlesearch module made by Mario Vilas at https://breakingcode.wordpress.com/
-'''
+"""
 
 import sys, requests, bs4, os, re, pprint, multiprocessing, openpyxl, docx, smtplib
 from multiprocessing import freeze_support, Manager
 from openpyxl.utils import get_column_letter  # getting the get_colum_letter function
 from googlesearch import search
-from ResumeTest import get_resume_text
 
 
 # functions
@@ -95,15 +94,18 @@ email_regex = re.compile(r'''
 # start consumers
 if __name__ == '__main__':
 
+    # variables
+    x = []  # for the list of list containing skills
+    techSummary = {}  # reference dictionary for the technology summary from resumes
+    fileNames = []  # list of file names
+
     # read in the resume
-    x = []
-    techSummary = {}
-    fileNames = []
     for root, dirs, files in os.walk("."):
         for filename in files:
             if filename.endswith("Resume.docx"):
                 fileNames.append(filename)
 
+    # read in the content of the resumes and find the section titled tech summary and add that to the ref dict
     for resume in fileNames:
         doc = docx.Document(resume)
         for para_index in range(len(doc.paragraphs)):
@@ -118,6 +120,7 @@ if __name__ == '__main__':
                     var_string += string.text
                 techSummary[resume] = var_string
 
+    # for each value in the ref dict split the string into a list and add that list to the list of lists x
     for value in techSummary.values():
         assert isinstance(value, str), 'Error: techSummary.values() does not return a string'
         data = value.split()
@@ -282,4 +285,4 @@ if __name__ == '__main__':
 
     excel_file.close()  # close the excel file
 
-    print('Data saved to Excel_Data.xlsx Successfully')
+    print('Data saved to Excel_Data.xlsx Successfully')  # output to user
