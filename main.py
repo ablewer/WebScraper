@@ -1,14 +1,18 @@
 """
-This program's function is to pull data about jobs and careers specified by the user and organizes the data into an
-excel file.
+Title: Resume Blaster
+Date: 12/16/2019
+Description: This program's function is to pull data about jobs and careers specified by the user and organizes the data
+ into an excel file.
 
-Using the googlesearch module made by Mario Vilas at https://breakingcode.wordpress.com/
+Created by: Austin Blewer, Lucas Schmidt, Shawn Ringler
+
+Credited: Using the googlesearch module made by Mario Vilas at https://breakingcode.wordpress.com/
 """
 
-import sys, requests, bs4, os, re, pprint, multiprocessing, openpyxl, docx, smtplib
-from multiprocessing import freeze_support, Manager
+import sys, requests, bs4, os, re, multiprocessing, openpyxl, docx, smtplib
+from multiprocessing import Manager  # for use of manager.dict() between processes
 from openpyxl.utils import get_column_letter  # getting the get_colum_letter function
-from googlesearch import search
+from googlesearch import search  # for use of the google search module
 
 
 # functions
@@ -71,6 +75,8 @@ def parse_data(id, q, d):
         print("Scraping done. Thread: " + (str(id) + " closed"))
 
 
+# the main body of the program
+
 # regex to search for technology keywords
 technology_regex = re.compile(r'''
     (tech|technology)
@@ -91,7 +97,7 @@ email_regex = re.compile(r'''
     ([a-zA-Z0-9.]+@\w+\.(com|ord|edu|net))
 ''', re.VERBOSE)
 
-# start consumers
+# if this is the main thread/process continue
 if __name__ == '__main__':
 
     # checks for command arguements
@@ -118,9 +124,9 @@ if __name__ == '__main__':
             assert isinstance(para_index, int), 'Error: para_index is not an int'
             # search a few different types of resumes
             if doc.paragraphs[para_index].text.lower() == 'technology summary' or \
-                    doc.paragraphs[para_index].text.lower() =='skills' or \
-                    doc.paragraphs[para_index].text.lower() =='technical proficiency' or \
-                    doc.paragraphs[para_index].text.lower() =='technical summary':
+                    doc.paragraphs[para_index].text.lower() == 'skills' or \
+                    doc.paragraphs[para_index].text.lower() == 'technical proficiency' or \
+                    doc.paragraphs[para_index].text.lower() == 'technical summary':
                 var_string = ''
                 for string in doc.paragraphs[para_index + 1].runs:
                     var_string += string.text
@@ -161,26 +167,31 @@ if __name__ == '__main__':
         for item in list_item:  # for every item inside the list
             search_string += str(item) + ' OR '  # add every item to the empty string plus an OR
         search_string += 'AND software developer jobs'  # end the search string with and software developer jobs
-        stop_num = round(35/len(x))  # set the stop number equal to that of 35 / length of the list of lists
+
+        max_num = lambda num: round(35/num)  # example use of a lambda function
+        stop_num = max_num(len(x))  # set the stop number equal to that of 35 / length of the list of lists
+        print('Searching for ' + str(stop_num) + ' urls for the resume: ' + resume_name_list[x.index(list_item)])
 
         start_num = 1  # starting number for percentage output
         for data in search(search_string, stop=stop_num):  # for each piece of data in the search that stops at 20
             url_que.put(data)  # place the data into a que
-            print(str(round((start_num / stop_num) * 100, 0)) + '% done searching for urls')
-            start_num += 1
+            print(str(round((start_num / stop_num) * 100, 0)) + '% done searching for urls')  # show progress bar
+            start_num += 1  # increment the start number by one
 
-        manager = Manager()
-        d = manager.dict()
+        manager = Manager()  # manager to handle info between processes
+        d = manager.dict()  # dictionary manager to handle dictionary data structure between processes
 
+        # start the consumers
         for processId in range(numProcesses):
             processes.append(multiprocessing.Process(target=parse_data, args=(processId, url_que, d)))
             processes[processId].start()
             url_que.put(None)
 
+        # join the consumers together into main
         for p in processes:
             p.join()
 
-        pprint.pprint(d)  # pprint the dictionary
+        print('Successfully web-scraped ' + str(stop_num) + ' urls')  # output to user
 
         excel_file = openpyxl.load_workbook('Excel_Data.xlsx')  # load the excel file
 
@@ -242,18 +253,15 @@ if __name__ == '__main__':
             sheetDict[title] = [email]  # create a dictionary of titles and emails
         emailDict[sheet] = sheetDict  # create a dicitonary of sheets and sheetDict
 
-
-    #read info from the command line
+    # read info from the command line
     if sys.argv.__len__() > 2:
         if isinstance(sys.argv[1], str):  # if 1 element is an integer
             email = sys.argv[1]
-            print(email)
+            print('Email: ' + email)  # output to user
         if isinstance(sys.argv[2], str):
             password = sys.argv[2]
-
-
-        individual = '' +' ' .join(sys.argv[3:])  # use the 2nd element on
-        print(individual)
+        individual = '' + ' '.join(sys.argv[3:])  # use the 2nd element on
+        print('Name: ' + individual)  # output to user
     # if the information is not on the command line
     else:
         passwordFile = open('password.txt')
@@ -269,12 +277,11 @@ if __name__ == '__main__':
     # send the email
     for resume in emailDict:
         for careers in sheetDict.keys():
-            smtpObj.sendmail(email, email, 'Subject: 2 email test.\n' + careers +'\n\n' + str(sheetDict[careers]) + '\n\n '
-                                           'Hello,\nI would like to introduce myself to you.  '
-                                           'I am ' + individual + ' and I believe your place of business would be a '
-                                           'great place for me to work.  I have attached my application.  Please '
-                                           'review it at your leisure.\nSincerely,\n' + individual, files=resume)
-    {}
+            smtpObj.sendmail(email, email, 'Subject: 2 email test.\n' + str(careers) + '\n\n' +
+                             str(sheetDict[careers]) + '\n\n ' + 'Hello,\nI would like to introduce myself to you.  ' +
+                             'I am ' + str(individual) + ' and I believe your place of business would be a ' +
+                             'great place for me to work.  I have attached my application.  Please ' +
+                             'review it at your leisure.\nSincerely,\n' + str(individual))
     # log out of email
     smtpObj.quit()
 
