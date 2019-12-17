@@ -273,7 +273,7 @@ if __name__ == '__main__':
                                            'Hello,\nI would like to introduce myself to you.  '
                                            'I am ' + individual + ' and I believe your place of business would be a '
                                            'great place for me to work.  I have attached my application.  Please '
-                                           'review it at your leisure.\nSincerely,\n' + individual)
+                                           'review it at your leisure.\nSincerely,\n' + individual, files=resume)
     {}
     # log out of email
     smtpObj.quit()
